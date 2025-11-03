@@ -1,0 +1,418 @@
+@use "@picocss/pico/scss/pico" with (
+  $enable-semantic-container: true,
+  $enable-classes: true,
+  $modules: (
+    "content/code": false,
+    "forms/input-color": false,
+    "forms/input-date": false,
+    "forms/input-file": false,
+    "forms/input-range": false,
+    "forms/input-search": false,
+    "components/accordion": false,
+    "components/progress": false,
+    "components/tooltip": false,
+    "utilities/accessibility": false,
+    "utilities/reduce-motion": false,
+  )
+);
+@use "./sal.custom.scss";
+
+/* Global variables */
+:root {
+  --neon-angle: 0deg;
+  --neon-border-gradient-colors: transparent 33%, rgb(74.2, 20.8, 68.4),
+    rgb(58.5, 32.5, 85.75), rgb(45, 36.6, 100.9), rgb(26.4, 42.9, 106.7);
+  --neon-border-gradient: linear-gradient(
+    var(--neon-angle),
+    var(--neon-border-gradient-colors)
+  );
+
+  --pico-modal-overlay-background-color: rgba(7.5, 8.5, 10, 0.66);
+}
+
+/* Pico overrides */
+h1 {
+  --pico-font-size: 3rem !important;
+  --pico-line-height: 1.25 !important;
+  --pico-typography-spacing-top: 3rem !important;
+}
+
+mark {
+  background: linear-gradient(
+    to right,
+    rgb(215.4, 140.8, 210.2),
+    rgb(184.5, 153, 237.75),
+    rgb(156.6, 165.3, 232.6),
+    rgb(142.75, 168.95, 240.05)
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+blockquote {
+  padding: 0 20px 0 20px !important;
+}
+
+.grid {
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)) !important;
+}
+
+section {
+  margin-bottom: 0 !important;
+  padding: 4rem !important;
+}
+
+$dialog-breakpoints: (
+  768px: 700px,
+  1024px: 950px,
+  1280px: 1200px,
+  1536px: 1450px,
+);
+
+dialog > article {
+  margin-bottom: var(--pico-spacing) !important;
+
+  > header {
+    display: flex;
+    flex-flow: row;
+    align-items: anchor-center;
+    min-height: 60px;
+  }
+
+  @each $min, $max in $dialog-breakpoints {
+    @media (min-width: #{$min}) {
+      max-width: #{$max} !important;
+    }
+  }
+  @media (max-width: 575px) {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+  }
+}
+
+/* Sal.js animation overrides  */
+
+[data-sal="slide-up"] {
+  --sal-delay: 200ms;
+  --sal-duration: 400ms;
+  --sal-easing: ease-out-bounce;
+}
+
+@for $i from 1 through 6 {
+  .projects > .card:nth-child(#{$i}) {
+    --sal-delay: #{($i - 1) * 100}ms !important;
+  }
+}
+
+/* Layout */
+summary::marker {
+  content: none;
+}
+
+article {
+  margin-bottom: 0;
+}
+
+section {
+  background-size: cover;
+  background-image: url(/build_assets/lines.svg);
+  background-attachment: fixed;
+
+  .container.carded {
+    background-color: var(--pico-background-color);
+    padding: 0 20px 20px;
+    border-radius: 0.5rem;
+    position: relative;
+  }
+
+  .neon-shadow::before {
+    z-index: -1;
+    position: absolute;
+    inset: -3rem;
+    border-radius: var(--pico-border-radius);
+    background: var(--neon-border-gradient);
+    content: "";
+    filter: blur(3rem);
+    opacity: 0.25;
+  }
+
+  .neon-border::after {
+    z-index: -1;
+    position: absolute;
+    inset: -1px;
+    border-radius: 0.5rem;
+    background: var(--neon-border-gradient);
+    content: "";
+  }
+
+  .clickable {
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.66;
+    }
+  }
+
+  a[role="button"],
+  button {
+    margin: 0.7rem 0.5rem 0 0;
+  }
+
+  .lede {
+    color: var(--pico-muted-color);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+
+    @media (min-width: 64rem) {
+      max-width: 66%;
+    }
+  }
+
+  /* Badges */
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.6rem;
+      border: 1px solid var(--pico-muted-border-color);
+      border-radius: 6px;
+      background: var(--pico-card-background-color);
+      font-size: 0.9rem;
+    }
+  }
+
+  /* Projects grid */
+  .card {
+    border-radius: 0.4rem;
+    position: relative;
+    padding-bottom: 50px;
+
+    &:focus-visible {
+      outline-offset: 1px;
+    }
+
+    .img-wrap {
+      height: 220px;
+      .progr_img {
+        height: 200px;
+        object-fit: cover;
+        border-radius: 0.2rem;
+      }
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      bottom: 20px;
+      position: absolute;
+      width: 100%;
+    }
+  }
+}
+
+/* History block */
+.historyline {
+  overflow: hidden;
+
+  .historyline_container {
+    position: relative;
+    padding: 1.25em 0 0;
+  }
+
+  .historyline_container::before {
+    content: "";
+    position: absolute;
+    top: 50px;
+    left: 6px;
+    height: 100%;
+    width: 4px;
+    background: var(--pico-primary);
+
+    @media (min-width: 64rem) {
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
+  }
+
+  .historyline_block {
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 2em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (min-width: 64rem) {
+      .historyline_date {
+        position: absolute;
+        width: 100%;
+        left: 120%;
+        top: 0.65rem;
+      }
+
+      &:nth-child(even) {
+        -ms-flex-direction: row-reverse;
+        flex-direction: row-reverse;
+
+        .historyline_date {
+          left: auto;
+          right: 120%;
+          text-align: right;
+        }
+      }
+
+      &:nth-child(odd) .historyline_content::before {
+        right: auto;
+        left: 100%;
+        width: 0;
+        height: 0;
+        border: 10px solid transparent;
+        border-left-color: var(--pico-card-sectioning-background-color);
+      }
+    }
+  }
+
+  .historyline_dot {
+    position: absolute;
+    top: 1rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: var(--pico-primary);
+
+    @media (min-width: 64rem) {
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
+  }
+
+  .historyline_content {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    position: relative;
+    margin-left: 2rem;
+
+    @media (min-width: 64rem) {
+      width: 45%;
+      -ms-flex-positive: 0;
+      flex-grow: 0;
+      will-change: transform;
+      margin: 0;
+    }
+
+    header {
+      font-weight: bold;
+      font-size: x-large;
+    }
+
+    p {
+      margin-top: 1rem;
+    }
+
+    small {
+      opacity: 66%;
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 1rem;
+      right: 100%;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      border-right-color: var(--pico-card-sectioning-background-color);
+    }
+  }
+}
+
+/* Dialog content */
+
+dialog {
+  > article {
+    display: flex;
+    flex-flow: column nowrap;
+    overflow: hidden;
+
+    > [x-html] {
+      margin: -1rem;
+      overflow: auto;
+    }
+  }
+}
+
+/* Other stuff */
+.spacer {
+  flex-grow: 1;
+}
+article.card h3 {
+  margin-bottom: 0.25rem;
+}
+
+.muted {
+  color: var(--pico-muted-color);
+}
+
+img {
+  width: 100%;
+  z-index: 0;
+  position: relative;
+}
+
+.btn-naked {
+  border-color: transparent;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+button,
+a[role="button"] {
+  > svg {
+    margin-top: -5px;
+    margin-left: 10px;
+  }
+}
+
+.img-wrap {
+  position: relative;
+}
+.img-wrap img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  transition: opacity 0.4s ease;
+}
+.low {
+  opacity: 1;
+}
+.high {
+  opacity: 0;
+}
+.high.is-loaded {
+  opacity: 1;
+}

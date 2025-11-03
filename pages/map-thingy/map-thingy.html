@@ -1,0 +1,16 @@
+<main data-page="map-thingy" x-data="mapthingy">
+  <img
+    class="progr_img"
+    src="/images/placeholder.gif"
+    x-init="loadFullImage($el, '/images/placeholder.png')"
+  />
+  <article>
+    <h1 x-text="message"></h1>
+    <a
+      role="button"
+      href="https://9gag.com"
+      target="_blank"
+      x-html="'9gag!'+$store.icons.gag9"
+    ></a>
+  </article>
+</main>
