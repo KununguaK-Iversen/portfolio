@@ -1,1 +1,83 @@
-Oh.. i need to learn markdown syntax
+# 🌐 Portfolio 2026
+
+A lightweight, modern portfolio built with **Vite 7**, **Alpine.js**, and **Pico CSS** — animated with **SAL.js**, optimized with **Sharp**, and deployable as static assets.
+
+---
+
+## Tech Stack
+
+- Vite (^7.1.12)
+- Alpine.js (^3.15.1)
+- Pico CSS (^2.1.1)
+- SAL.js (^0.8.5)
+- Lucide Static (^0.548.0) & Simple Icons (^15.18.0)
+- Sass (^1.93.2)
+- Sharp (^0.34.4)
+- vite-plugin-static-copy (^3.1.4)
+
+---
+
+## Requirements
+
+- Node: 22.21.0 (pinned via Volta)
+- npm: 11.6.2 (pinned via Volta)
+
+Volta ensures consistent Node/npm versions across machines.
+
+---
+
+## Getting Started
+
+Clone and install:
+
+  git clone https://github.com/KununguaK-Iversen/portfolio.git
+  cd portfolio
+  npm install
+
+Run the dev server:
+
+  npm run dev
+
+
+---
+
+## NPM Scripts
+
+| Script    | Description                          |
+|---------- |--------------------------------------|
+| dev       | Start Vite dev server                |
+| build     | Build production bundle              |
+| preview   | Preview the production build         |
+| gifify    | Convert PNGs → GIFs via Sharp script |
+
+---
+
+## Asset Optimization (GIFify)
+
+Batch-convert PNGs to blurred/optimized GIFs:
+
+  npm run gifify
+  (runs: node build_assets/png-to-gifs.js images 20)
+
+Adjust the target directory (`images`) and the quality/blur parameter (`20`) as needed.
+
+---
+
+## ⚙️ Vite Config Notes
+
+- Uses `vite-plugin-static-copy` to move static assets at build time.
+- Uses Node built-ins (`fs`, `path`) under ESM; for TypeScript IntelliSense, add `@types/node`.
+- Resolves paths via `import.meta.url` / `fileURLToPath` for an ESM-friendly `__dirname`.
+
+---
+
+## Tips
+
+- Project uses ES Modules (`"type": "module"` in `package.json`).
+- With Volta, the specified Node/npm versions auto-activate inside the project.
+
+---
+
+## License
+
+© 2025 Kunungua K Iversen — All rights reserved.
