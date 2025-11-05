@@ -1,275 +1,228 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark" class="loading">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KununguaK — Frontend Developer</title>
-    <script defer type="module" src="./index.js"></script>
-    <style>
-      html.loading body {
-        opacity: 0;
-      }
-      html.ready body {
-        opacity: 1;
-        transition: opacity 0.4s ease;
-      }
-    </style>
-  </head>
 
-  <body x-data>
-    <!-- Intro -->
-    <section>
-      <main class="container">
-        <h1>
-          Experienced <mark>Frontend Developer</mark> &
-          <mark>UI Designer</mark> looking for new adventures
-        </h1>
-        <div class="grid" style="display: flex">
-          <div
-            class="img-wrap"
-            style="
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KununguaK — Frontend Developer</title>
+  <script defer type="module" src="./index.js"></script>
+  <style>
+    html.loading body {
+      opacity: 0;
+    }
+
+    html.ready body {
+      opacity: 1;
+      transition: opacity 0.4s ease;
+    }
+  </style>
+</head>
+
+<body x-data>
+  <!-- Intro -->
+  <section>
+    <main class="container">
+      <h1>
+        Experienced <mark>Frontend Developer</mark> &
+        <mark>UI Designer</mark> looking for new adventures
+      </h1>
+      <div class="grid" style="display: flex">
+        <progr-media src-high="/images/profilepic.png" style="border-radius: 5px;
               width: 30%;
               margin: 1rem 0;
               min-width: 100px;
-              max-width: 220px;
-            "
-          >
-            <img
-              src="/images/profilepic.gif"
-              class="progr_img low"
-              style="border-radius: 5px"
-            />
-            <img
-              x-init="loadFullImage($el, '/images/profilepic.png')"
-              class="progr_img high"
-              style="border-radius: 5px"
-            />
+              max-width: 220px;">
+          <img src="/images/profilepic.gif" />
+        </progr-media>
+        <blockquote style="max-width: 768px">
+          “I'm a data visualization specialist with extensive experience on
+          crafting user centered products - combining UX research & UI design
+          with scalable code.”
+          <footer>
+            <cite>— KununguaK Iversen</cite>
+          </footer>
+          <div style="padding-top: 0.4rem">
+            <a role="button" class="outline" href="mailto:kununguaq@gmail.com"
+              x-html="'Hire me!'+$store.icons.Mail"></a>
+            <a role="button" class="outline secondary btn-naked" href="https://github.com/you" target="_blank"
+              x-html="'GitHub'+$store.icons.github"></a>
+            <a role="button" class="outline secondary btn-naked" href="https://linkedin.com/kununguaqiversen"
+              target="_blank" x-html="'Linkedin'+$store.icons.linkedin"></a>
+            <a role="button" class="outline secondary btn-naked" href="/resume.pdf" target="_blank"
+              x-html="'Résumé'+$store.icons.FileText"></a>
           </div>
-          <blockquote style="max-width: 768px">
-            “I'm a data visualization specialist with extensive experience on
-            crafting user centered products - combining UX research & UI design
-            with scalable code.”
-            <footer>
-              <cite>— KununguaK Iversen</cite>
-            </footer>
-            <div style="padding-top: 0.4rem">
-              <a
-                role="button"
-                class="outline"
-                href="mailto:kununguaq@gmail.com"
-                x-html="'Hire me!'+$store.icons.Mail"
-              ></a>
-              <a
-                role="button"
-                class="outline secondary btn-naked"
-                href="https://github.com/you"
-                target="_blank"
-                x-html="'GitHub'+$store.icons.github"
-              ></a>
-              <a
-                role="button"
-                class="outline secondary btn-naked"
-                href="https://linkedin.com/kununguaqiversen"
-                target="_blank"
-                x-html="'Linkedin'+$store.icons.linkedin"
-              ></a>
-              <a
-                role="button"
-                class="outline secondary btn-naked"
-                href="/resume.pdf"
-                target="_blank"
-                x-html="'Résumé'+$store.icons.FileText"
-              ></a>
+        </blockquote>
+      </div>
+
+      </div>
+    </main>
+  </section>
+
+  <!-- Competency badges -->
+  <section>
+    <main class="container" data-sal="slide-up">
+      <h2>Competencies</h2>
+      <p class="lede">
+        24 years of varied tools & coding knowledge - creating web apps,
+        tools, sites, games and solutions for different sectors and
+        industries.
+      </p>
+      <div class="grid projects">
+        <div>
+          <h4>Frameworks & libraries</h4>
+          <blockquote>
+            <div class="badges">
+              <span class="badge">Angular</span>
+              <span class="badge">RxJS</span>
+              <span class="badge">Alpine.js</span>
+              <span class="badge">Framework7</span>
+              <span class="badge">Web components</span>
+              <span class="badge">Shoelace</span>
+              <span class="badge">Material design</span>
+              <span class="badge">Tailwind</span>
             </div>
           </blockquote>
         </div>
-      </main>
-    </section>
 
-    <!-- Competency badges -->
-    <section>
-      <main class="container" data-sal="slide-up">
-        <h2>Competencies</h2>
-        <p class="lede">
-          24 years of varied tools & coding knowledge - creating web apps,
-          tools, sites, games and solutions for different sectors and
-          industries.
-        </p>
-        <div class="grid projects">
-          <div>
-            <h4>Frameworks & libraries</h4>
-            <blockquote>
-              <div class="badges">
-                <span class="badge">Angular</span>
-                <span class="badge">RxJS</span>
-                <span class="badge">Alpine.js</span>
-                <span class="badge">Framework7</span>
-                <span class="badge">Web components</span>
-                <span class="badge">Shoelace</span>
-                <span class="badge">Material design</span>
-                <span class="badge">Tailwind</span>
-              </div>
-            </blockquote>
-          </div>
-
-          <div>
-            <h4>Languages</h4>
-            <blockquote>
-              <div class="badges">
-                <span class="badge">Typescript</span>
-                <span class="badge">Javascript ES2025</span>
-                <span class="badge">C#</span>
-                <span class="badge">PHP</span>
-                <span class="badge">HTML</span>
-                <span class="badge">CSS</span>
-                <span class="badge">SCSS/SASS</span>
-                <span class="badge">Actionscript 2</span>
-                <span class="badge">Danish</span>
-                <span class="badge">English</span>
-              </div>
-            </blockquote>
-          </div>
-
-          <div>
-            <h4>Tools & Services</h4>
-            <blockquote>
-              <div class="badges">
-                <span class="badge">VS code</span>
-                <span class="badge">Git</span>
-                <span class="badge">AWS</span>
-                <span class="badge">Vercel</span>
-                <span class="badge">npm</span>
-                <span class="badge">Webpack</span>
-                <span class="badge">Volta</span>
-                <span class="badge">Vite</span>
-                <span class="badge">Figma</span>
-                <span class="badge">Slack</span>
-                <span class="badge">Jira</span>
-                <span class="badge">Wordpress</span>
-              </div>
-            </blockquote>
-          </div>
+        <div>
+          <h4>Languages</h4>
+          <blockquote>
+            <div class="badges">
+              <span class="badge">Typescript</span>
+              <span class="badge">Javascript ES2025</span>
+              <span class="badge">C#</span>
+              <span class="badge">PHP</span>
+              <span class="badge">HTML</span>
+              <span class="badge">CSS</span>
+              <span class="badge">SCSS/SASS</span>
+              <span class="badge">Actionscript 2</span>
+              <span class="badge">Danish</span>
+              <span class="badge">English</span>
+            </div>
+          </blockquote>
         </div>
-      </main>
-    </section>
 
-    <!-- Projects grid -->
-    <section>
-      <main class="container card carded neon-shadow neon-border">
-        <nav>
-          <ul>
-            <li><h2 style="margin-bottom: 6px">Featured showcase</h2></li>
-          </ul>
-
-          <!-- Checkboxes -->
-          <ul>
-            <li>
-              <details class="dropdown">
-                <summary>Filter by tags</summary>
-                <ul dir="rtl">
-                  <template x-for="tag in $store.portfolio.tags" :key="tag">
-                    <li>
-                      <label>
-                        <input
-                          type="checkbox"
-                          :value="tag"
-                          @change="$store.portfolio.toggleFilter(tag)"
-                          :checked="$store.portfolio.filter.includes(tag)"
-                        />
-                        <span x-text="tag"></span>
-                      </label>
-                    </li>
-                  </template>
-                </ul>
-              </details>
-            </li>
-          </ul>
-        </nav>
-
-        <div class="grid projects" id="projects-grid">
-          <template x-for="p in $store.portfolio.filteredPages" :key="p.slug">
-            <article
-              class="card clickable"
-              data-sal="slide-up"
-              @click="$store.modal.openModal(p)"
-              tabindex="0"
-            >
-              <div class="img-wrap">
-                <img
-                  class="progr_img low"
-                  x-data
-                  :src="p.imgSmall"
-                  :alt="p.title"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <img
-                  x-init="loadFullImage($el, p.imgFull)"
-                  class="progr_img high"
-                />
-              </div>
-
-              <h4 x-text="p.title"></h4>
-              <p class="muted" x-text="p.summary"></p>
-
-              <footer>
-                <small x-text="p.tags"></small>
-                <span class="spacer"></span>
-              </footer>
-            </article>
-          </template>
+        <div>
+          <h4>Tools & Services</h4>
+          <blockquote>
+            <div class="badges">
+              <span class="badge">VS code</span>
+              <span class="badge">Git</span>
+              <span class="badge">AWS</span>
+              <span class="badge">Vercel</span>
+              <span class="badge">npm</span>
+              <span class="badge">Webpack</span>
+              <span class="badge">Volta</span>
+              <span class="badge">Vite</span>
+              <span class="badge">Figma</span>
+              <span class="badge">Slack</span>
+              <span class="badge">Jira</span>
+              <span class="badge">Wordpress</span>
+            </div>
+          </blockquote>
         </div>
-      </main>
-    </section>
+      </div>
+    </main>
+  </section>
 
-    <!-- Historyline (vertical resume) -->
-    <section style="background-color: rgb(13 19 32)">
-      <main class="container historyline js-historyline">
-        <h1>History</h1>
-        <p class="lede">
-          Angular specialist • React-friendly • Maps • Charts • Perf
-        </p>
+  <!-- Projects grid -->
+  <section>
+    <main class="container card carded neon-shadow neon-border">
+      <nav>
+        <ul>
+          <li>
+            <h2 style="margin-bottom: 6px">Featured showcase</h2>
+          </li>
+        </ul>
 
-        <div class="historyline_container">
-          <div class="historyline_block" data-sal="slide-up">
-            <div class="historyline_dot"></div>
+        <!-- Checkboxes -->
+        <ul>
+          <li>
+            <details class="dropdown">
+              <summary>Filter by tags</summary>
+              <ul dir="rtl">
+                <template x-for="tag in $store.portfolio.tags" :key="tag">
+                  <li>
+                    <label>
+                      <input type="checkbox" :value="tag" @change="$store.portfolio.toggleFilter(tag)"
+                        :checked="$store.portfolio.filter.includes(tag)" />
+                      <span x-text="tag"></span>
+                    </label>
+                  </li>
+                </template>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
 
-            <article class="historyline_content">
-              <header>Title</header>
-              <small>FE development • UX/UI</small>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
-                optio, dolorum provident rerum aut hic quasi placeat iure
-                tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
-                veritatis qui ut.
-              </p>
+      <div class="grid projects" id="projects-grid">
+        <template x-for="p in $store.portfolio.filteredPages" :key="p.slug">
+          <article class="card clickable" data-sal="slide-up" @click="$store.modal.openModal(p)" tabindex="0">
+            <progr-media x-data :src-high="p.imgFull">
+              <img x-data :src="p.imgSmall" :alt="p.title" loading="lazy" decoding="async" />
+            </progr-media>
+            <h4 x-text="p.title"></h4>
+            <p class="muted" x-text="p.summary"></p>
 
-              <div class="flex justify-between items-center">
-                <span class="historyline_date">Jan 14</span>
-              </div>
-            </article>
-          </div>
-          <div class="historyline_block" data-sal="slide-up">
-            <div class="historyline_dot"></div>
+            <footer>
+              <small x-text="p.tags"></small>
+              <span class="spacer"></span>
+            </footer>
+          </article>
+        </template>
+      </div>
+    </main>
+  </section>
 
-            <article class="historyline_content">
-              <header>Title 2</header>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
-                optio, dolorum provident rerum aut hic quasi placeat iure
-                tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
-                veritatis qui ut.
-              </p>
+  <!-- Historyline (vertical resume) -->
+  <section style="background-color: rgb(13 19 32)">
+    <main class="container historyline js-historyline">
+      <h1>History</h1>
+      <p class="lede">
+        Angular specialist • React-friendly • Maps • Charts • Perf
+      </p>
 
-              <div class="flex justify-between items-center">
-                <span class="historyline_date">Jan 14</span>
-              </div>
-            </article>
-          </div>
+      <div class="historyline_container">
+        <div class="historyline_block" data-sal="slide-up">
+          <div class="historyline_dot"></div>
+
+          <article class="historyline_content">
+            <header>Title</header>
+            <small>FE development • UX/UI</small>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+              optio, dolorum provident rerum aut hic quasi placeat iure
+              tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
+              veritatis qui ut.
+            </p>
+
+            <div class="flex justify-between items-center">
+              <span class="historyline_date">Jan 14</span>
+            </div>
+          </article>
         </div>
-      </main>
+        <div class="historyline_block" data-sal="slide-up">
+          <div class="historyline_dot"></div>
 
-      <!-- <ol class="timeline">
+          <article class="historyline_content">
+            <header>Title 2</header>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+              optio, dolorum provident rerum aut hic quasi placeat iure
+              tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
+              veritatis qui ut.
+            </p>
+
+            <div class="flex justify-between items-center">
+              <span class="historyline_date">Jan 14</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </main>
+
+    <!-- <ol class="timeline">
         <li>
           <div class="dot"></div>
           <div class="content">
@@ -290,36 +243,28 @@
           </div>
         </li>
       </ol> -->
-    </section>
+  </section>
 
-    <!-- Pico-native modal -->
-    <dialog
-      id="modal-dialog"
-      x-data
-      @keydown.window.escape="$store.modal.closeModal()"
-      @click.self="$store.modal.closeModal()"
-      aria-modal="true"
-    >
-      <article>
-        <header>
-          <h4 id="project-title" x-text="$store.modal.title"></h4>
-          <span class="spacer"></span>
-          <button @click="$store.modal.closeModal()" rel="prev"></button>
-        </header>
-        <div x-show="$store.modal.loading" aria-busy="true"></div>
-        <div
-          x-html="$store.modal.html"
-          x-show="!$store.modal.loading"
-          class="content-window"
-        ></div>
-        <!-- <footer>Hello i am a footer</footer> -->
-      </article>
-    </dialog>
+  <!-- Pico-native modal -->
+  <dialog id="modal-dialog" x-data @keydown.window.escape="$store.modal.closeModal()"
+    @click.self="$store.modal.closeModal()" aria-modal="true">
+    <article>
+      <header>
+        <h4 id="project-title" x-text="$store.modal.title"></h4>
+        <span class="spacer"></span>
+        <button @click="$store.modal.closeModal()" rel="prev"></button>
+      </header>
+      <div x-show="$store.modal.loading" aria-busy="true"></div>
+      <div x-html="$store.modal.html" x-show="!$store.modal.loading" class="content-window"></div>
+      <!-- <footer>Hello i am a footer</footer> -->
+    </article>
+  </dialog>
 
-    <noscript>
-      <div class="container">
-        <p>Please enable JavaScript to view project details.</p>
-      </div>
-    </noscript>
-  </body>
+  <noscript>
+    <div class="container">
+      <p>Please enable JavaScript to view project details.</p>
+    </div>
+  </noscript>
+</body>
+
 </html>

@@ -1,4 +1,5 @@
 import "./build_assets/styles.scss"; // Styling
+import './components/progr-media.js'; // registers <progr-media> web-component
 import sal from "sal.js"; // Animation https://github.com/mciastek/sal
 import Alpine from "alpinejs"; // Framework https://alpinejs.dev/
 import { X, FileText, Mail } from "lucide-static"; // Generic icons https://lucide.dev/
@@ -52,9 +53,9 @@ Alpine.store("portfolio", {
       const tags = Array.isArray(p.tags)
         ? p.tags
         : (p.tags || "")
-            .split(" • ")
-            .map((t) => t.trim())
-            .filter(Boolean);
+          .split(" • ")
+          .map((t) => t.trim())
+          .filter(Boolean);
       tags.forEach((t) => tagSet.add(t));
       p.tagsList = tags;
     });
@@ -88,11 +89,6 @@ Alpine.store("modal", {
   loading: false,
   title: "",
   html: "",
-  abortControl: null,
-
-  get signal() {
-    return this.abortControl?.signal;
-  },
 
   getScrollbarWidth() {
     const scrollbarWidth =
@@ -113,24 +109,12 @@ Alpine.store("modal", {
     this.title = p.title;
     history.pushState({ slug }, "", `#${slug}`);
 
-    this.abortControl = new AbortController();
-    const { signal } = this.abortControl;
-    modal.addEventListener(
-      "close",
-      () => {
-        this.abortControl?.abort();
-        this.abortControl = null;
-      },
-      { once: true }
-    );
-
     modal.showModal();
     try {
       const res = await fetch(
         `${import.meta.env.BASE_URL}pages/${slug}/${slug}.html`,
         {
-          cache: "no-cache",
-          signal,
+          cache: "no-cache"
         }
       );
       const markup = await res.text();
@@ -156,7 +140,6 @@ Alpine.store("modal", {
   },
 
   closeModal() {
-    this.abortControl.abort();
     const modal = document.getElementById("modal-dialog");
     const { documentElement: html } = document;
     html.classList.add(this.closingClass);
@@ -185,43 +168,6 @@ function simpleIconsToSvg(icon, size = 24) {
   `;
 }
 window.simpleIconsToSvg = simpleIconsToSvg;
-
-/*
- * Progressive image loading utility called by img.onload.
- * Dialog->img self-canceling when modal closes.
- * Globally available
- */
-async function loadFullImage(img, src) {
-  if (img.dataset.upgraded) return; // already full res
-  img.dataset.upgraded = true;
-  img.classList.add("is-loading");
-
-  try {
-    const signal = Alpine.store("modal").signal;
-    const res = await fetch(src, { signal });
-    if (!res.ok) throw new Error(res.statusText);
-
-    const blob = await res.blob();
-    const objectUrl = URL.createObjectURL(blob);
-
-    // fade transition: set up load handler before swap
-    const fadeOut = () => {
-      img.classList.remove("is-loading");
-      img.classList.add("is-loaded");
-      URL.revokeObjectURL(objectUrl);
-      img.removeEventListener("load", fadeOut);
-    };
-
-    img.onload = () => {
-      URL.revokeObjectURL(objectUrl);
-      fadeOut();
-    };
-    img.src = objectUrl;
-  } catch (err) {
-    img.classList.remove("is-loading");
-  }
-}
-window.loadFullImage = loadFullImage;
 
 const animlib = sal({ threshold: 0.2 }); // fire up Sal animation lib
 window.Alpine = Alpine;

@@ -1,8 +1,6 @@
-@use "@picocss/pico/scss/pico" with (
-  $enable-semantic-container: true,
+@use "@picocss/pico/scss/pico" with ($enable-semantic-container: true,
   $enable-classes: true,
-  $modules: (
-    "content/code": false,
+  $modules: ("content/code": false,
     "forms/input-color": false,
     "forms/input-date": false,
     "forms/input-file": false,
@@ -13,8 +11,7 @@
     "components/tooltip": false,
     "utilities/accessibility": false,
     "utilities/reduce-motion": false,
-  )
-);
+  ));
 @use "./sal.custom.scss";
 
 /* Global variables */
@@ -22,10 +19,8 @@
   --neon-angle: 0deg;
   --neon-border-gradient-colors: transparent 33%, rgb(74.2, 20.8, 68.4),
     rgb(58.5, 32.5, 85.75), rgb(45, 36.6, 100.9), rgb(26.4, 42.9, 106.7);
-  --neon-border-gradient: linear-gradient(
-    var(--neon-angle),
-    var(--neon-border-gradient-colors)
-  );
+  --neon-border-gradient: linear-gradient(var(--neon-angle),
+      var(--neon-border-gradient-colors));
 
   --pico-modal-overlay-background-color: rgba(7.5, 8.5, 10, 0.66);
 }
@@ -38,13 +33,11 @@ h1 {
 }
 
 mark {
-  background: linear-gradient(
-    to right,
-    rgb(215.4, 140.8, 210.2),
-    rgb(184.5, 153, 237.75),
-    rgb(156.6, 165.3, 232.6),
-    rgb(142.75, 168.95, 240.05)
-  ) !important;
+  background: linear-gradient(to right,
+      rgb(215.4, 140.8, 210.2),
+      rgb(184.5, 153, 237.75),
+      rgb(156.6, 165.3, 232.6),
+      rgb(142.75, 168.95, 240.05)) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;
@@ -70,10 +63,10 @@ $dialog-breakpoints: (
   1536px: 1450px,
 );
 
-dialog > article {
+dialog>article {
   margin-bottom: var(--pico-spacing) !important;
 
-  > header {
+  >header {
     display: flex;
     flex-flow: row;
     align-items: anchor-center;
@@ -85,6 +78,7 @@ dialog > article {
       max-width: #{$max} !important;
     }
   }
+
   @media (max-width: 575px) {
     position: fixed;
     top: 0;
@@ -108,7 +102,7 @@ dialog > article {
 }
 
 @for $i from 1 through 6 {
-  .projects > .card:nth-child(#{$i}) {
+  .projects>.card:nth-child(#{$i}) {
     --sal-delay: #{($i - 1) * 100}ms !important;
   }
 }
@@ -205,9 +199,10 @@ section {
       outline-offset: 1px;
     }
 
-    .img-wrap {
+    progr-media {
       height: 220px;
-      .progr_img {
+
+      img {
         height: 200px;
         object-fit: cover;
         border-radius: 0.2rem;
@@ -351,12 +346,12 @@ section {
 /* Dialog content */
 
 dialog {
-  > article {
+  >article {
     display: flex;
     flex-flow: column nowrap;
     overflow: hidden;
 
-    > [x-html] {
+    >[x-html] {
       margin: -1rem;
       overflow: auto;
     }
@@ -367,6 +362,7 @@ dialog {
 .spacer {
   flex-grow: 1;
 }
+
 article.card h3 {
   margin-bottom: 0.25rem;
 }
@@ -391,28 +387,8 @@ img {
 
 button,
 a[role="button"] {
-  > svg {
+  >svg {
     margin-top: -5px;
     margin-left: 10px;
   }
-}
-
-.img-wrap {
-  position: relative;
-}
-.img-wrap img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: auto;
-  transition: opacity 0.4s ease;
-}
-.low {
-  opacity: 1;
-}
-.high {
-  opacity: 0;
-}
-.high.is-loaded {
-  opacity: 1;
 }
