@@ -1,4 +1,4 @@
-# 🌐 Portfolio 2026
+# Portfolio 2026 🌐 
 
 A lightweight, modern portfolio built with **Vite 7**, **Alpine.js**, and **Pico CSS** — animated with **SAL.js**, optimized with **Sharp**, and deployable as static assets.
 
@@ -22,21 +22,15 @@ A lightweight, modern portfolio built with **Vite 7**, **Alpine.js**, and **Pico
 - Node: 22.21.0 (pinned via Volta)
 - npm: 11.6.2 (pinned via Volta)
 
-Volta ensures consistent Node/npm versions across machines.
+Volta.sh ensures consistent Node/npm versions across machines.
 
 ---
 
 ## Getting Started
 
-Clone and install:
+git clone https://github.com/KununguaK-Iversen/portfolio.git
 
-  git clone https://github.com/KununguaK-Iversen/portfolio.git
-  cd portfolio
-  npm install
-
-Run the dev server:
-
-  npm run dev
+cd portfolio • npm install • npm run dev
 
 
 ---
@@ -63,7 +57,7 @@ Adjust the target directory (`images`) and the quality/blur parameter (`20`) as 
 
 ---
 
-## ⚙️ Vite Config Notes
+## Vite Config Notes
 
 - Uses `vite-plugin-static-copy` to move static assets at build time.
 - Uses Node built-ins (`fs`, `path`) under ESM; for TypeScript IntelliSense, add `@types/node`.
@@ -80,4 +74,4 @@ Adjust the target directory (`images`) and the quality/blur parameter (`20`) as 
 
 ## License
 
-© 2025 Kunungua K Iversen — All rights reserved.
+© 2025 KununguaK Iversen — All rights reserved.
