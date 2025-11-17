@@ -326,8 +326,13 @@ section {
       margin-top: 1rem;
     }
 
-    small {
+    small,
+    smaller {
       opacity: 66%;
+    }
+
+    smaller {
+      font-weight: bold;
     }
 
     &:before {
