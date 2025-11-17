@@ -27,11 +27,12 @@ Volta.sh ensures consistent Node/npm versions across machines.
 ---
 
 ## Getting Started
-
+```
 git clone https://github.com/KununguaK-Iversen/portfolio.git
-
-cd portfolio • npm install • npm run dev
-
+cd portfolio
+npm install
+npm run dev
+```
 
 ---
 
@@ -48,7 +49,7 @@ cd portfolio • npm install • npm run dev
 
 ## Asset Optimization (GIFify)
 
-Batch-convert PNGs to blurred/optimized GIFs:
+**Batch-convert PNGs to blurred/optimized GIFs:**
 
   npm run gifify
   (runs: node build_assets/png-to-gifs.js images 20)
