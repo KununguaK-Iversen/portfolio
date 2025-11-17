@@ -102,7 +102,7 @@ dialog>article {
 }
 
 @for $i from 1 through 6 {
-  .projects>.card:nth-child(#{$i}) {
+  .features>.card:nth-child(#{$i}) {
     --sal-delay: #{($i - 1) * 100}ms !important;
   }
 }
@@ -148,14 +148,6 @@ section {
     content: "";
   }
 
-  .clickable {
-    cursor: pointer;
-
-    &:hover {
-      opacity: 0.66;
-    }
-  }
-
   a[role="button"],
   button {
     margin: 0.7rem 0.5rem 0 0;
@@ -186,36 +178,6 @@ section {
       border-radius: 6px;
       background: var(--pico-card-background-color);
       font-size: 0.9rem;
-    }
-  }
-
-  /* Projects grid */
-  .card {
-    border-radius: 0.4rem;
-    position: relative;
-    padding-bottom: 50px;
-
-    &:focus-visible {
-      outline-offset: 1px;
-    }
-
-    progr-media {
-      height: 220px;
-
-      img {
-        height: 200px;
-        object-fit: cover;
-        border-radius: 0.2rem;
-      }
-    }
-
-    footer {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      bottom: 20px;
-      position: absolute;
-      width: 100%;
     }
   }
 }

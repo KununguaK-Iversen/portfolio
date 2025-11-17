@@ -67,7 +67,7 @@
         tools, sites, games and solutions for different sectors and
         industries.
       </p>
-      <div class="grid projects">
+      <div class="grid">
         <div>
           <h4>Frameworks & libraries</h4>
           <blockquote>
@@ -125,53 +125,24 @@
     </main>
   </section>
 
-  <!-- Projects grid -->
+  <!-- Featured project -->
   <section>
     <main class="container card carded neon-shadow neon-border">
       <nav>
         <ul>
           <li>
-            <h2 style="margin-bottom: 6px">Featured showcase</h2>
+            <h2 style="margin-bottom: 6px">Featured project</h2>
           </li>
         </ul>
 
-        <!-- Checkboxes -->
         <ul>
-          <li>
-            <details class="dropdown">
-              <summary>Filter by tags</summary>
-              <ul dir="rtl">
-                <template x-for="tag in $store.portfolio.tags" :key="tag">
-                  <li>
-                    <label>
-                      <input type="checkbox" :value="tag" @change="$store.portfolio.toggleFilter(tag)"
-                        :checked="$store.portfolio.filter.includes(tag)" />
-                      <span x-text="tag"></span>
-                    </label>
-                  </li>
-                </template>
-              </ul>
-            </details>
+          <li role="button" class="outline secondary btn-naked" x-data
+            @click="Alpine.store('modal').openModal({slug:'dryp', title:'Dryp platform'})" x-html="'Read more'+$store.icons.FileText">
           </li>
         </ul>
+
       </nav>
 
-      <div class="grid projects" id="projects-grid">
-        <template x-for="p in $store.portfolio.filteredPages" :key="p.slug">
-          <article class="card clickable" data-sal="slide-up" @click="$store.modal.openModal(p)" tabindex="0">
-            <progr-media x-data :src-high="p.imgFull">
-              <img x-data :src="p.imgSmall" :alt="p.title" loading="lazy" decoding="async" />
-            </progr-media>
-            <h4 x-text="p.title"></h4>
-            <p class="muted" x-text="p.summary"></p>
-
-            <footer>
-              <small x-text="p.tags"></small>
-              <span class="spacer"></span>
-            </footer>
-          </article>
-        </template>
-      </div>
     </main>
   </section>
 
@@ -182,7 +153,7 @@
       <p class="lede">
         Besides the coding related experiences i've listed below, I also posses many
         non-coding related experiences in the sectors of defence, service, labor,
-        security, hospitality, support, and sales. Some before the kick-off of
+        security, hospitality, support, and sales. Some before
         my coding carreer, and some in between coding gigs. I believe in order
         to marke products for people - you need to be people.
       </p>
@@ -210,7 +181,7 @@
           <div class="historyline_dot"></div>
           <article class="historyline_content">
             <header>Nexdas ApS</header>
-            <smaller>FE developer • Multimedia designer</smaller>
+            <smaller>Fullstack developer • UX researcher • Multimedia designer</smaller>
             <p>
               Creative director for all in-house projects, and responsible for all
               aspects of creative development, including... logo designs, brand
@@ -300,7 +271,7 @@
           <div class="historyline_dot"></div>
           <article class="historyline_content">
             <header>Taskbuddy IVS</header>
-            <smaller>FE/BE + UI/UX developer • Multimedia designer</smaller>
+            <smaller>Fullstack developer • UX researcher • Multimedia designer</smaller>
             <p>
               Researched, designed and developed an online portal
               for gig-work. Other responsibilities included designing

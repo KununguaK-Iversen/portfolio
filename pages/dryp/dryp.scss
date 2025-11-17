@@ -1,5 +1,34 @@
-[data-page="dryp"]{
-    .noclass{
-        visibility: hidden;
+[data-page="dryp"] {
+
+    padding: 2rem;
+
+    /* Features grid */
+    .card {
+        border-radius: 0.4rem;
+        position: relative;
+        padding-bottom: 50px;
+
+        &:focus-visible {
+            outline-offset: 1px;
+        }
+
+        progr-media {
+            height: 220px;
+
+            img {
+                height: 200px;
+                object-fit: cover;
+                border-radius: 0.2rem;
+            }
+        }
+
+        footer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            bottom: 20px;
+            position: absolute;
+            width: 100%;
+        }
     }
 }
