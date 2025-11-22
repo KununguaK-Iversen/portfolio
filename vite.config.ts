@@ -30,8 +30,8 @@ export default defineConfig({
           dest: "",
         },
         {
-          src: "pages/projects.json",
-          dest: "pages",
+          src: "images_gifify",
+          dest: "",
         },
       ],
     }),

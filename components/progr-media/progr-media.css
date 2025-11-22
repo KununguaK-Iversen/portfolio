@@ -1,0 +1,108 @@
+progr-media {
+    display: block;
+    position: relative;
+    contain: layout
+}
+
+/* stack */
+progr-media .pm-low,
+progr-media .pm-high {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: var(--pm-object-fit, cover);
+    border-radius: inherit;
+    transition: opacity var(--pm-duration, .4s) ease;
+}
+
+/* low is visible until high becomes ready */
+progr-media .pm-low {
+    opacity: 1
+}
+
+progr-media .pm-high {
+    opacity: 0
+}
+
+progr-media .pm-high.pm-loaded {
+    opacity: 1
+}
+
+/* when high is ready, fade low out */
+progr-media.pm-ready .pm-low {
+    opacity: 0
+}
+
+/* control button */
+progr-media .pm-ctrl {
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, .44);
+    color: #fff;
+    padding: 0;
+    transition: transform .15s ease, background .2s ease;
+}
+
+progr-media.pm-click {
+    cursor: pointer;
+}
+
+progr-media.pm-click:hover .pm-ctrl {
+    transform: scale(1.05);
+    background: rgba(0, 0, 0, .66);
+}
+
+progr-media:not(.pm-ready) .pm-ctrl .icon {
+    display: none !important;
+}
+
+progr-media:not(.pm-ready) .pm-ctrl::after {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background-image: url("data:image/svg+xml,%3Csvg fill='none' height='24' width='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' %3E%3Cstyle%3E g %7B animation: rotate 2s linear infinite; transform-origin: center center; %7D circle %7B stroke-dasharray: 75,100; stroke-dashoffset: -5; animation: dash 1.5s ease-in-out infinite; stroke-linecap: round; %7D @keyframes rotate %7B 0%25 %7B transform: rotate(0deg); %7D 100%25 %7B transform: rotate(360deg); %7D %7D @keyframes dash %7B 0%25 %7B stroke-dasharray: 1,100; stroke-dashoffset: 0; %7D 50%25 %7B stroke-dasharray: 44.5,100; stroke-dashoffset: -17.5; %7D 100%25 %7B stroke-dasharray: 44.5,100; stroke-dashoffset: -62; %7D %7D %3C/style%3E%3Cg%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='%23fff' stroke-width='4' /%3E%3C/g%3E%3C/svg%3E");
+    background-size: 1em auto;
+    background-repeat: no-repeat;
+    content: "";
+    vertical-align: -0.125em;
+}
+
+progr-media .pm-ctrl svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    margin-top: unset !important;
+    margin-left: unset !important;
+}
+
+/* icon swapping via data-state (play|pause) */
+progr-media .pm-ctrl .icon {
+    display: none
+}
+
+progr-media .pm-ctrl[data-state="play"] .icon-play {
+    display: block
+}
+
+progr-media .pm-ctrl[data-state="pause"] .icon-pause {
+    display: block
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    progr-media .pm-low,
+    progr-media .pm-high {
+        transition: none
+    }
+}

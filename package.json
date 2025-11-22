@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "gifify": "node build_assets/png-to-gifs.js images 20"
+    "gifify": "node build_assets/gifify.js images 20"
   },
   "devDependencies": {
     "@types/node": "^24.10.0",

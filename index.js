@@ -1,5 +1,5 @@
 import "./build_assets/styles.scss"; // Styling
-import './components/progr-media.js'; // registers <progr-media> web-component
+import './components/progr-media/progr-media.js'; // registers <progr-media> web-component
 import sal from "sal.js"; // Animation https://github.com/mciastek/sal
 import Alpine from "alpinejs"; // Framework https://alpinejs.dev/
 import { X, FileText, Mail } from "lucide-static"; // Generic icons https://lucide.dev/
