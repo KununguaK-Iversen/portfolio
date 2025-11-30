@@ -1,6 +1,9 @@
 # Node dependencies
 node_modules/
 
+# Dist folder
+dist/
+
 # Sass build artifacts
 assets/style.min.css
 assets/style.min.css.map

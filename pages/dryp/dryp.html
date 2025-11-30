@@ -2,19 +2,196 @@
   <h1 x-text="message"></h1>
   <div class="grid features">
     <article class="card" tabindex="0">
-      <progr-media src-high="images/peek.gif">
-        <img src="images_gifify/peek.gif" decoding="async" />
+      <progr-media src-high="images/lens-auth.m4v">
+        <img src="images_gifify/lens-auth.gif" decoding="async" />
       </progr-media>
-      <h4>Feature title</h4>
-      <p class="muted">Feature summary</p>
+      <h4>JWT authentication</h4>
+      <p class="muted">Provides stateless, token-based user verification where the
+        client stores a signed token after login and sends it with each request,
+        enabling lightweight, scalable access control.
+      </p>
     </article>
 
     <article class="card" tabindex="0">
-      <progr-media src-high="images/placeholder.png">
-        <img src="images_gifify/placeholder.gif" decoding="async" />
+      <progr-media src-high="images/lens-layout.m4v">
+        <img src="images_gifify/lens-layout.gif" decoding="async" />
       </progr-media>
-      <h4>Feature title 2</h4>
-      <p class="muted">Feature summary 2</p>
+      <h4>Layout sizing</h4>
+      <p class="muted">Panels can share or completely occupy the screen real-estate.
+        The navigation menu is also collapsible, in order to increase real-estate.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <progr-media src-high="images/lens-overlays.m4v">
+        <img src="images_gifify/lens-overlays.gif" decoding="async" />
+      </progr-media>
+      <h4>Map overlays</h4>
+      <p class="muted">The Leaflet map supports GeoJSON and image overlays.
+        Sequenced image overlays (like radar images), are cached and playable.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <progr-media src-high="images/lens-virt-src.m4v">
+        <img src="images_gifify/lens-feat-virt-src.gif" decoding="async" />
+      </progr-media>
+      <h4>Source virtual</h4>
+      <p class="muted">Radar image sequences contain data, that can be derived into
+        time-series, by dragging and placing a virtual source on to the map.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <progr-media src-high="images/lens-chart-sort.m4v">
+        <img src="images_gifify/lens-chart-sort.gif" decoding="async" />
+      </progr-media>
+      <h4>Source sorting</h4>
+      <p class="muted">Opened data sources can be dragged to and from different charts.
+        Default sorting can also be set to group by: data-type, location, or no
+        grouping.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <progr-media src-high="images/lens-filter.m4v">
+        <img src="images_gifify/lens-filter.gif" decoding="async" />
+      </progr-media>
+      <h4>Source filtering</h4>
+      <p class="muted">Depending on the view, data sources can be filtered in different ways:
+        by grouped locations, sensor type, sensor state, search term, and wether or not they
+        have data.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <progr-media src-high="images/lens-templates.m4v">
+        <img src="images_gifify/lens-templates.gif" decoding="async" />
+      </progr-media>
+      <h4>Source templates</h4>
+      <p class="muted">Views and opened data sources can be saved as templates, on a
+        private, organizational, or public level. Handy for lining up usual suspects.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <progr-media src-high="images/lens-markers.m4v">
+        <img src="images_gifify/lens-markers.gif" decoding="async" />
+      </progr-media>
+      <h4>Source SVG icons</h4>
+      <p class="muted">Depending on the view, data source icons display either state, type,
+        or both. This is facilitated through dynamic svg elements used in both lists and maps.</p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <progr-media src-high="images/lens-chart-ops.m4v">
+        <img src="images_gifify/lens-chart-ops.gif" decoding="async" />
+      </progr-media>
+      <h4>Data correlation</h4>
+      <p class="muted">Time-series values can be segmented for distribution overview, and
+        grouped time-series can be correlated against eachother in a scatter-plot.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <progr-media src-high="images/lens-chart-edit.m4v">
+        <img src="images_gifify/lens-chart-edit.gif" decoding="async" />
+      </progr-media>
+      <h4>Data annotation</h4>
+      <p class="muted">The charts support time-series editing, correction, commenting,
+        and labeling. Theese annotations are represented with a bookmark icon, at the
+        end of the source label.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <progr-media src-high="images/lens-chart-edit-inspect.m4v">
+        <img src="images_gifify/lens-chart-edit-inspect.gif" decoding="async" />
+      </progr-media>
+      <h4>Annotation inspection</h4>
+      <p class="muted">A data source's annotations, can be opened, inspected, and deleted.
+        When opened both edited and raw time-series are displayed on top of eachother.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <progr-media src-high="images/lens-notes.m4v">
+        <img src="images_gifify/lens-notes.gif" decoding="async" />
+      </progr-media>
+      <h4>Source notes</h4>
+      <p class="muted">Historical notes are tied to each data source's physical location. A chat
+        layout is used to display the notes, with timestamps, attachments, and author information.
+      </p>
+    </article>
+
+    <!-- no images -->
+
+    <article class="card" tabindex="0">
+      <h4>Date/time-range</h4>
+      <p class="muted">Time-ranges affect time-series, accumulated data states, sensor
+        states, or the availability of data sources. Defined ranges can be paginated.
+        Some views have default ranges.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <h4>Data export</h4>
+      <p class="muted">Summary.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <h4>Time-series caching</h4>
+      <p class="muted">Time-series requests are diffed against cached time blocks to minimize
+        network requests. Missing blocks are coalesced into single requests to reduce
+        round-trips and bandwidth.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <h4>Time-series chunking</h4>
+      <p class="muted">When there are more data-points than pixels; the time-series are
+        compressed before display for rendering optimization, by dividing into pixel chunks
+        and outputting min/max values per chunk.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <h4>Deep linking</h4>
+      <p class="muted">Route parameters lets the app encode state directly in the URL,
+        so users can open specific views, data sources, time-ranges, and layouts via links.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <h4>Lazy loaded modules</h4>
+      <p class="muted">Improves performance by loading feature modules only when needed,
+        reducing initial bundle size and speeding up startup time.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <h4>i18n</h4>
+      <p class="muted">Internationalization is supported by separating translatable
+        content from code, enabling the app to dynamically load language files and
+        present a fully localized UI.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <h4>Authentication guard</h4>
+      <p class="muted">Controls access to protected routes by checking a user’s
+        authentication or permissions before navigation, ensuring only authorized
+        users can reach sensitive views.
+      </p>
+    </article>
+
+    <article class="card" tabindex="0">
+      <h4>Route resolving</h4>
+      <p class="muted">Ensures required data is fetched before a route activates,
+        giving users a fully prepared view the moment the page loads and preventing
+        flicker or half-rendered states.
+      </p>
     </article>
   </div>
 </main>

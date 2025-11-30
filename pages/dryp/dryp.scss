@@ -4,22 +4,18 @@
 
     /* Features grid */
     .card {
-        border-radius: 0.4rem;
+        border-radius: 0.2rem;
         position: relative;
-        padding-bottom: 50px;
+        overflow: hidden;
+        padding: 1rem;
 
         &:focus-visible {
             outline-offset: 1px;
         }
 
         progr-media {
-            height: 220px;
-
-            img {
-                height: 200px;
-                object-fit: cover;
-                border-radius: 0.2rem;
-            }
+            aspect-ratio: 921 / 576;
+            margin: -1rem -1rem 1rem -1rem;
         }
 
         footer {
