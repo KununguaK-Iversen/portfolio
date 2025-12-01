@@ -1,8 +1,9 @@
 # Node dependencies
 node_modules/
 
-# Dist folder
+# Build folders
 dist/
+images_gifify/*
 
 # Sass build artifacts
 assets/style.min.css
