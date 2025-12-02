@@ -43,18 +43,19 @@ npm run dev
 | dev       | Start Vite dev server                |
 | build     | Build production bundle              |
 | preview   | Preview the production build         |
-| gifify    | Convert PNGs → GIFs via Sharp script |
+| gifify    | Convert imgs and vids to blurry gifs |
 
 ---
 
 ## Asset Optimization (GIFify)
 
-**Batch-convert PNGs to blurred/optimized GIFs:**
+**Batch-convert images and videos to blurred/optimized GIFs:**
 
   npm run gifify
-  (runs: node build_assets/png-to-gifs.js images 20)
+  (runs: node build_assets/gifify.js images images_gifify 40)
 
-Adjust the target directory (`images`) and the quality/blur parameter (`20`) as needed.
+Adjust the input folder (`images`), the output folder (`images_gifify`) and the width
+parameter (`40`) as needed.
 
 ---
 

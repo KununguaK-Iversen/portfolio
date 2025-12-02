@@ -20,17 +20,11 @@ import { promisify } from "node:util";
 const execFileAsync = promisify(execFile);
 
 const inputDir = process.argv[2] || "images";
-const sizeArg = process.argv[3] || "0.5";
+const outputDir = process.argv[3] || "images_gifify";
+const sizeArg = process.argv[4] || "0.5";
 const isScale = !/^\d+$/.test(String(sizeArg));
 const scale = isScale ? parseFloat(sizeArg) : null;
 const maxWidth = isScale ? null : parseInt(sizeArg, 10);
-
-// output sibling-folder: <inputDir>_gifify
-const absIn = path.resolve(inputDir);
-const outDir = path.join(
-  path.dirname(absIn),
-  `${path.basename(absIn)}_gifify`,
-);
 
 // file types
 const imageExts = new Set([".png", ".jpg", ".jpeg", ".gif"]);
@@ -66,7 +60,7 @@ async function extractFirstFrame(videoPath) {
 }
 
 async function main() {
-  await fs.mkdir(outDir, { recursive: true });
+  await fs.mkdir(outputDir, { recursive: true });
 
   const entries = await fs.readdir(inputDir, { withFileTypes: true });
   const files = entries
@@ -83,7 +77,7 @@ async function main() {
   for (const file of files) {
     const ext = path.extname(file).toLowerCase();
     const name = path.basename(file, ext);
-    const outPath = path.join(outDir, `${name}.gif`);
+    const outPath = path.join(outputDir, `${name}.gif`);
 
     try {
       let img;
@@ -122,7 +116,7 @@ async function main() {
     }
   }
 
-  console.log(`Done. Output in: ${outDir}`);
+  console.log(`Done. Output in: ${outputDir}`);
 }
 
 main().catch((err) => {
