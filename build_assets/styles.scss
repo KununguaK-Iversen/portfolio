@@ -54,6 +54,11 @@ blockquote {
 section {
   margin-bottom: 0 !important;
   padding: 4rem !important;
+
+  @media (max-width: 640px) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }
 
 $dialog-breakpoints: (
@@ -79,7 +84,7 @@ dialog>article {
     }
   }
 
-  @media (max-width: 575px) {
+  @media (max-width: 640px) {
     position: fixed;
     top: 0;
     bottom: 0;
