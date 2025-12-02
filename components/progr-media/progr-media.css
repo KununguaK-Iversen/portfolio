@@ -48,10 +48,18 @@ progr-media .pm-ctrl {
     height: 36px;
     border: none;
     border-radius: 50%;
-    background: rgba(0, 0, 0, .44);
-    color: #fff;
     padding: 0;
-    transition: transform .15s ease, background .2s ease;
+    color: #fff;
+    background: rgba(0, 0, 0, .44);
+    opacity: 1;
+    transition: transform .25s ease, background .25s ease, opacity .25s ease;
+
+}
+
+progr-media .pm-ctrl.pm-ctrl-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
 }
 
 progr-media.pm-click {

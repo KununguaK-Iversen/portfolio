@@ -23,12 +23,25 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
 
   class ProgrMedia extends HTMLElement {
     static get observedAttributes() {
-      return ['src-high', 'kind', 'eager', 'rootmargin', 'object-fit', 'poster', 'autoplay', 'loop', 'muted', 'playsinline', 'controls'];
+      return [
+        'src-high',
+        'kind',
+        'eager',
+        'rootmargin',
+        'object-fit',
+        'poster',
+        'autoplay',
+        'loop',
+        'muted',
+        'playsinline',
+        'controls',
+      ];
     }
 
     constructor() {
       super();
-      this._io = null;
+      this._io = null;              // lazy-load IO
+      this._playIO = null;          // visibility / pause/resume IO
       this._abort = new AbortController();
       this._objectURLs = new Set();
       this._upgraded = false;
@@ -37,6 +50,14 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
       this._gifStillDataUrl = null;
 
       this._ctrl = this._createCtrlFromTemplate();
+
+      this._externalSignal = null;
+      this._mode = 'hover';         // hover | controls | autoplay | touch-controls
+      this._wasPlayingOnLeave = false;
+
+      this._hoverHandlersBound = false;
+      this._onPointerEnter = null;
+      this._onPointerLeave = null;
 
       // interactions
       this.addEventListener('click', (e) => {
@@ -70,11 +91,16 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
 
       if (!this.contains(this._ctrl)) this.appendChild(this._ctrl);
 
+      this._computeMode();
       this._maybeObserve();
     }
 
-    disconnectedCallback() { this._cleanup(); }
+    disconnectedCallback() {
+      this._cleanup();
+    }
+
     attributeChangedCallback() {
+      this._computeMode();
       if (this.isConnected && !this._upgraded) this._maybeObserve(true);
     }
 
@@ -82,6 +108,7 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
     set signal(sig) { this._externalSignal = sig; }
 
     // ---- internals
+
     _createCtrlFromTemplate() {
       const tpl = document.getElementById('progr-media-ctrl');
       if (!tpl || !(tpl instanceof HTMLTemplateElement)) {
@@ -104,6 +131,7 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
       const explicit = (this.getAttribute('kind') || '').toLowerCase();
       if (explicit === 'img' || explicit === 'image') return 'img';
       if (explicit === 'video') return 'video';
+      if (explicit === 'gif') return 'gif';
       const src = this.getAttribute('src-high') || '';
       if (VIDEO_EXT.test(src)) return 'video';
       if (GIF_EXT.test(src)) return 'gif';
@@ -112,7 +140,43 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
 
     _rootMargin() { return this.getAttribute('rootmargin') || '200px 0px'; }
     _isEager() { return this.hasAttribute('eager'); }
-    _autoPlayWanted() { return this.hasAttribute('autoplay'); }
+
+    _computeMode() {
+      let touchLike = false;
+      try {
+        if (typeof window !== 'undefined' && 'matchMedia' in window) {
+          const mm = window.matchMedia.bind(window);
+          touchLike = mm('(pointer: coarse)').matches || mm('(hover: none)').matches;
+        }
+      } catch {
+        touchLike = false;
+      }
+
+      const wantsControls = this.hasAttribute('controls');
+      const wantsAutoplay = this.hasAttribute('autoplay');
+
+      // If autoplay is requested, enforce muted + playsinline on the host
+      if (wantsAutoplay) {
+        if (!this.hasAttribute('muted')) this.setAttribute('muted', '');
+        if (!this.hasAttribute('playsinline')) this.setAttribute('playsinline', '');
+      }
+
+      if (touchLike) {
+        this._mode = 'touch-controls';
+      } else if (wantsControls) {
+        this._mode = 'controls';
+      } else if (wantsAutoplay) {
+        this._mode = 'autoplay';
+      } else {
+        this._mode = 'hover';
+      }
+
+    }
+
+    _autoPlayWanted() {
+      // Autoplay is only honored in non-touch, autoplay mode
+      return this._mode === 'autoplay';
+    }
 
     _maybeObserve(reset = false) {
       if (this._isEager()) { this._upgrade(); return; }
@@ -178,10 +242,11 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
         this.classList.add('pm-ready');
       });
 
+      // No controls for static images
       this._ctrl.hidden = true;
     }
 
-    // video (paused visible unless autoplay)
+    // video (paused visible unless autoplay or hover mode)
     async _prepareVideo(src) {
       const vid = document.createElement('video');
       vid.className = 'pm-high';
@@ -190,7 +255,7 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
       this._copyBoolAttr(vid, 'muted');
       this._copyBoolAttr(vid, 'loop');
       this._copyBoolAttr(vid, 'playsinline');
-      this._copyBoolAttr(vid, 'controls');
+      // IMPORTANT: no native controls; overlay only
 
       const poster = this.getAttribute('poster');
       if (poster) vid.poster = poster;
@@ -198,18 +263,28 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
       const url = await this._fetchAsObjectURL(src);
 
       vid.addEventListener('loadeddata', () => {
+        this._highEl = vid;
         requestAnimationFrame(() => {
           vid.classList.add('pm-loaded');
           this.classList.add('pm-ready');
-          this.classList.add('pm-click');
+          if (this._mode !== 'hover') {
+            this.classList.add('pm-click');
+          }
         });
-        if (this._autoPlayWanted()) {
+
+        // Behavior by mode
+        if (this._mode === 'hover') {
+          this._setupHoverHandlers();
+        } else if (this._autoPlayWanted()) {
+          this._ctrl.hidden = false;
           this._playVideo(vid);
         } else {
+          // controls / touch-controls
+          this._ctrl.hidden = false;
           this._setCtrl('play');
         }
-        URL.revokeObjectURL(url);
-        this._objectURLs.delete(url);
+
+        this._setupPlaybackObserver();
       }, { once: true });
 
       vid.addEventListener('error', () => {
@@ -217,7 +292,6 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
       }, { once: true });
 
       vid.src = url;
-      this._highEl = vid;
       this.appendChild(vid);
     }
 
@@ -232,21 +306,39 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
 
       try {
         this._gifStillDataUrl = await this._gifFirstFrameURL(this._gifAnimatedUrl);
-      } catch { }
+      } catch {
+        this._gifStillDataUrl = null;
+      }
 
-      if (this._autoPlayWanted() || !this._gifStillDataUrl) {
+      // mode-specific initial state
+      if (this._mode === 'hover') {
+        img.src = this._gifStillDataUrl || this._gifAnimatedUrl;
+        this._setupHoverHandlers();
+      } else if (this._autoPlayWanted()) {
+        this._ctrl.hidden = false;
         img.src = this._gifAnimatedUrl;
         this._setCtrl('pause');
       } else {
-        img.src = this._gifStillDataUrl;
-        this._setCtrl('play');
+        // controls / touch-controls
+        this._ctrl.hidden = false;
+        if (this._gifStillDataUrl) {
+          img.src = this._gifStillDataUrl;
+          this._setCtrl('play');
+        } else {
+          img.src = this._gifAnimatedUrl;
+          this._setCtrl('pause');
+        }
       }
 
       requestAnimationFrame(() => {
         img.classList.add('pm-loaded');
         this.classList.add('pm-ready');
-        this.classList.add('pm-click');
+        if (this._mode !== 'hover') {
+          this.classList.add('pm-click');
+        }
       });
+
+      this._setupPlaybackObserver();
     }
 
     _gifFirstFrameURL(animatedUrl) {
@@ -269,6 +361,9 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
     }
 
     _togglePlay() {
+      // In hover mode, playback is hover-driven, not click-driven
+      if (this._mode === 'hover') return;
+
       const kind = this._kind();
       if (kind === 'video' && this._highEl instanceof HTMLVideoElement) {
         if (this._highEl.paused) this._playVideo(this._highEl);
@@ -292,6 +387,7 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
       vid.play().catch(() => { });
       this._setCtrl('pause');
     }
+
     _pauseVideo(vid) {
       vid.pause();
       this._setCtrl('play');
@@ -317,14 +413,111 @@ if (typeof document !== 'undefined' && !document.getElementById('progr-media-ctr
 
     _copyBoolAttr(el, name) { if (this.hasAttribute(name)) el.setAttribute(name, ''); }
 
+    _setupHoverHandlers() {
+      if (this._hoverHandlersBound) return;
+      this._hoverHandlersBound = true;
+
+      this._onPointerEnter = () => {
+        if (this._mode !== 'hover') return;
+
+        // hide the button during hover
+        this._ctrl.classList.add('pm-ctrl-hidden');
+
+        const kind = this._kind();
+        if (kind === 'video' && this._highEl instanceof HTMLVideoElement) {
+          this._playVideo(this._highEl);
+        } else if (kind === 'gif' && this._highEl instanceof HTMLImageElement && this._gifAnimatedUrl) {
+          this._highEl.src = this._gifAnimatedUrl;
+        }
+      };
+
+      this._onPointerLeave = () => {
+        if (this._mode !== 'hover') return;
+
+        // show the button again when hover ends
+        this._ctrl.classList.remove('pm-ctrl-hidden');
+
+        const kind = this._kind();
+        if (kind === 'video' && this._highEl instanceof HTMLVideoElement) {
+          this._pauseVideo(this._highEl);
+        } else if (kind === 'gif' && this._highEl instanceof HTMLImageElement) {
+          if (this._gifStillDataUrl) {
+            this._highEl.src = this._gifStillDataUrl;
+          }
+        }
+      };
+
+      this.addEventListener('pointerenter', this._onPointerEnter);
+      this.addEventListener('pointerleave', this._onPointerLeave);
+    }
+
+
+    _setupPlaybackObserver() {
+      if (this._playIO) return;
+
+      this._playIO = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.target !== this) continue;
+          const kind = this._kind();
+          const isVideo = kind === 'video' && this._highEl instanceof HTMLVideoElement;
+          const isGif = kind === 'gif' && this._highEl instanceof HTMLImageElement;
+
+          if (!isVideo && !isGif) return;
+
+          if (!e.isIntersecting) {
+            // Leaving viewport: pause if currently playing
+            if (isVideo && !this._highEl.paused) {
+              this._wasPlayingOnLeave = true;
+              this._pauseVideo(this._highEl);
+            } else if (isGif && this._highEl.src === this._gifAnimatedUrl) {
+              this._wasPlayingOnLeave = true;
+              if (this._gifStillDataUrl && this._mode !== 'autoplay') {
+                this._highEl.src = this._gifStillDataUrl;
+                this._setCtrl('play');
+              }
+            } else {
+              this._wasPlayingOnLeave = false;
+            }
+          } else {
+            // Re-entering viewport: resume only if it *was* playing
+            if (!this._wasPlayingOnLeave) return;
+            this._wasPlayingOnLeave = false;
+
+            // In hover mode, let hover drive playback
+            if (this._mode === 'hover') return;
+
+            if (isVideo) {
+              this._playVideo(this._highEl);
+            } else if (isGif && this._gifAnimatedUrl) {
+              this._highEl.src = this._gifAnimatedUrl;
+              this._setCtrl('pause');
+            }
+          }
+        }
+      }, { root: null, threshold: 0.01 });
+
+      this._playIO.observe(this);
+    }
+
     _cleanup() {
       this._abort.abort();
       this._abort = new AbortController();
+
       if (this._io) { this._io.disconnect(); this._io = null; }
+      if (this._playIO) { this._playIO.disconnect(); this._playIO = null; }
+
+      if (this._hoverHandlersBound) {
+        this.removeEventListener('pointerenter', this._onPointerEnter);
+        this.removeEventListener('pointerleave', this._onPointerLeave);
+        this._hoverHandlersBound = false;
+        this._onPointerEnter = this._onPointerLeave = null;
+      }
+
       this._objectURLs.forEach(URL.revokeObjectURL);
       this._objectURLs.clear();
       this._gifAnimatedUrl = null;
       this._gifStillDataUrl = null;
+      this._wasPlayingOnLeave = false;
     }
   }
 
