@@ -1,6 +1,10 @@
-[data-page="dryp"] {
+[data-page="lens"] {
 
     padding: 2rem;
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)) !important;
+    }
 
     /* Features grid */
     .card {
@@ -14,17 +18,8 @@
         }
 
         progr-media {
-            aspect-ratio: 921 / 576;
+            aspect-ratio: 16 / 9;
             margin: -1rem -1rem 1rem -1rem;
-        }
-
-        footer {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            bottom: 20px;
-            position: absolute;
-            width: 100%;
         }
     }
 }

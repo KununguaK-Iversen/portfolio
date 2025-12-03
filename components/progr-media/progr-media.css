@@ -7,7 +7,6 @@ progr-media {
 /* stack */
 progr-media .pm-low,
 progr-media .pm-high {
-    position: absolute;
     inset: 0;
     display: block;
     width: 100%;
@@ -23,7 +22,8 @@ progr-media .pm-low {
 }
 
 progr-media .pm-high {
-    opacity: 0
+    opacity: 0;
+    position: absolute;
 }
 
 progr-media .pm-high.pm-loaded {

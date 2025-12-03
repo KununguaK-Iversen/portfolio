@@ -47,13 +47,10 @@ blockquote {
   padding: 0 20px 0 20px !important;
 }
 
-.grid {
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)) !important;
-}
-
 section {
   margin-bottom: 0 !important;
   padding: 4rem !important;
+  overflow-x: clip;
 
   @media (max-width: 640px) {
     padding-left: 0 !important;
@@ -168,11 +165,25 @@ section {
     }
   }
 
+  .float-media-left {
+    float: left;
+    margin: 0 2rem 1rem 0;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: var(--pico-box-shadow);
+
+    @media (max-width: 64rem) {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+  }
+
   /* Badges */
   .badges {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin: 0 1rem 1rem 0;
 
     .badge {
       display: inline-flex;
@@ -362,6 +373,15 @@ a[role="button"] {
   >svg {
     margin-top: -5px;
     margin-left: 10px;
+  }
+}
+
+details.dropdown {
+  a {
+    >svg {
+      margin-top: -2px;
+      margin-right: 10px;
+    }
   }
 }
 

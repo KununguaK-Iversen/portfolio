@@ -42,13 +42,37 @@
             <cite>— KununguaK Iversen</cite>
           </footer>
           <div style="padding-top: 0.4rem">
-            <a role="button" class="outline" href="mailto:kununguaq@gmail.com"
-              x-html="'Hire me!'+$store.icons.Mail"></a>
-            <!-- <a role="button" class="outline secondary btn-naked" href="https://github.com/KununguaK-Iversen" target="_blank"
-              x-html="'GitHub'+$store.icons.github"></a> -->
-            <a role="button" class="outline secondary btn-naked" href="https://www.linkedin.com/in/colorcoder/"
-              target="_blank" x-html="'Linkedin'+$store.icons.linkedin"></a>
-            <a role="button" class="outline secondary btn-naked" href="/resume.pdf" target="_blank"
+            <!-- <a role="button" class="outline" href="mailto:kununguaq@gmail.com"
+              x-html="'Hire me!'+$store.icons.Mail"></a> -->
+
+            <details class="dropdown" style="display:inline-block; margin-right:10px">
+              <summary role="button" class="outline">
+                Hire me!
+              </summary>
+              <ul x-data="{isMobile: /Android|webOS|iPhone|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)}">
+                <li><a href="https://www.linkedin.com/in/colorcoder/" target="_blank"
+                    x-html="$store.icons.linkedin+' Linkedin'"></a></li>
+
+                <li><a href="mailto:kununguaq@gmail.com" x-html="$store.icons.Mail+' E-mail'"></a></li>
+
+                <li x-show="isMobile"><a href="https://wa.me/qr/6Z2ZANCEYVRGM1" target="_blank"
+                    x-html="$store.icons.whatsapp+' WhatsApp'"></a></li>
+
+                <li x-show="!isMobile"><a x-data
+                    @click="Alpine.store('modal').openModal({slug:'whatsapp', title:'WhatsApp contact'})"
+                    x-html="$store.icons.whatsapp+' WhatsApp'"></a></li>
+
+              </ul>
+            </details>
+
+            <a role="button" class="outline secondary btn-naked" x-data
+              @click="Alpine.store('modal').openModal({slug:'aboutme', title:'About me'})"
+              x-html="'About me'+$store.icons.FileUser"></a>
+
+            <a disabled role="button" class="outline secondary btn-naked" href="https://github.com/KununguaK-Iversen"
+              target="_blank" x-html="'GitHub'+$store.icons.github"></a>
+
+            <a disabled role="button" class="outline secondary btn-naked" href="/resume.pdf" target="_blank"
               x-html="'Résumé'+$store.icons.FileText"></a>
           </div>
         </blockquote>
@@ -134,19 +158,43 @@
             <h2 style="margin-bottom: 6px">Featured project</h2>
           </li>
         </ul>
-
-        <ul>
-          <li role="button" class="outline secondary btn-naked" x-data
-            @click="Alpine.store('modal').openModal({slug:'dryp', title:'Dryp platform'})"
-            x-html="'Read more'+$store.icons.FileText">
-          </li>
-        </ul>
-
       </nav>
 
-      <progr-media src-high="images/lens-platform.m4v" style="aspect-ratio: 16/9;" autoplay loop>
+      <progr-media src-high="images/lens-platform.m4v" class="float-media-left"
+        style="aspect-ratio: 16 / 9; min-width: 66%;" autoplay loop>
         <img src="images_gifify/lens-platform.gif" decoding="async" />
       </progr-media>
+      <img src="images/dryp-logo-lens.svg" style="width: 200px; margin-bottom: 1rem;" />
+      <p>
+        Unified Data Platform for Water Utilities
+      </p>
+      <div class="badges">
+        <span class="badge">Angular</span>
+        <span class="badge">RxJS</span>
+        <span class="badge">Material design</span>
+        <span class="badge">Typescript</span>
+        <span class="badge">AWS</span>
+      </div>
+      <p class="muted">
+        I designed and built the full UX/UI and frontend for Lens, a platform that brings together complex datasets from
+        SCADA systems, GIS layers, wired and wireless sensors, and rainfall models into one intuitive interface.
+      </p>
+      <p class="muted">
+        My work focused on turning heavy, domain-specific hydraulic data into a smooth, fast, and approachable user
+        experience. I developed interactive geospatial views, multi-sensor time-series exploration, drag-and-drop tools,
+        and data-rich components capable of handling millions of datapoints while keeping the interface responsive.
+      </p>
+      <p class="muted">
+        The result is a modern, hardware-agnostic platform that helps utilities understand their networks, validate
+        sensor data, and make better decisions through clear visual storytelling and a friction less workflow.
+      </p>
+
+      <a role="button" class="outline" x-data
+        @click="Alpine.store('modal').openModal({slug:'lens', title:'Lens feature list'})"
+        x-html="'Features'+$store.icons.ScrollText"></a>
+
+      <a role="button" class="outline secondary btn-naked" href="https://www.drypdata.com/news/presenting-lens"
+        target="_blank" x-html="'drypdata.com'+$store.icons.SquareArrowOutUpRight"></a>
 
     </main>
   </section>
@@ -171,10 +219,9 @@
             <header>Dryp A/S</header>
             <smaller>FE developer • UX/UI designer</smaller>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
-              optio, dolorum provident rerum aut hic quasi placeat iure
-              tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus
-              veritatis qui ut.
+              I designed and built the full UX/UI and frontend for Lens, a platform that brings together complex
+              datasets from SCADA systems, GIS layers, wired and wireless sensors, and rainfall models into one
+              intuitive interface.
             </p>
             <div class="flex justify-between items-center">
               <span class="historyline_date">Jul 2019 - Oct 2024</span>

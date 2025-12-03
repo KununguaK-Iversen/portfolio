@@ -1,0 +1,17 @@
+[data-page="whatsapp"] {
+
+    padding: 2rem;
+
+    >div {
+        max-width: 480px;
+        display: flex;
+        flex-flow: column;
+        justify-self: center;
+
+        progr-media {
+            border-radius: 6px;
+            min-width: 300px;
+            margin-bottom: 1rem;
+        }
+    }
+}
