@@ -2,6 +2,7 @@ import "./build_assets/styles.scss"; // Styling
 import './components/progr-media/progr-media.js'; // registers <progr-media> web-component
 import sal from "sal.js"; // Animation https://github.com/mciastek/sal
 import Alpine from "alpinejs"; // Framework https://alpinejs.dev/
+import { initRouter } from "./build_assets/router.js";
 import { X, FileText, Mail, SquareArrowOutUpRight, FileUser, ScrollText } from "lucide-static"; // Generic icons https://lucide.dev/
 import { siGithub, siWhatsapp } from "simple-icons"; // Brand icons https://simpleicons.org/
 
@@ -29,41 +30,48 @@ Alpine.store("modal", {
   loading: false,
   title: "",
   html: "",
+  slug: null,
 
   getScrollbarWidth() {
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-    return scrollbarWidth;
+    return window.innerWidth - document.documentElement.clientWidth;
   },
 
-  async openModal(p) {
-    const slug = p.slug;
+  async openFromRoute(route) {
+    const { slug, title } = route;
     const modal = document.getElementById("modal-dialog");
-    const { documentElement: html } = document;
+    const { documentElement: htmlRoot } = document;
+
+    this.slug = slug;
+    this.title = title || "";
+    this.loading = true;
+
     const scrollbarWidth = this.getScrollbarWidth();
     if (scrollbarWidth) {
-      html.style.setProperty(this.scrollbarWidthCssVar, `${scrollbarWidth}px`);
+      htmlRoot.style.setProperty(
+        this.scrollbarWidthCssVar,
+        `${scrollbarWidth}px`
+      );
     }
-    html.classList.add(this.isOpenClass, this.openingClass);
-    this.loading = true;
-    this.title = p.title;
-    history.pushState({ slug }, "", `#${slug}`);
 
+    htmlRoot.classList.add(this.isOpenClass, this.openingClass);
     modal.showModal();
+
     try {
       const res = await fetch(
         `${import.meta.env.BASE_URL}pages/${slug}/${slug}.html`,
         {
-          cache: "no-cache"
+          cache: "no-cache",
         }
       );
       const markup = await res.text();
       if (!res.ok) {
         throw new Error(res.status);
       }
+
       // Load that page’s module
       const mod = await import(`./pages/${slug}/${slug}.js`);
       mod.init?.();
+
       this.html = markup;
     } catch (err) {
       this.html = `<article><h3>Page request failed, ${err}</h3><p style="color: var(--pico-muted-color)">/pages/${slug}.html</p></article>`;
@@ -72,29 +80,37 @@ Alpine.store("modal", {
     }
 
     setTimeout(() => {
-      html.classList.remove(this.openingClass);
+      htmlRoot.classList.remove(this.openingClass);
     }, this.animationDuration);
 
     // Pico auto-focuses close-button :-(
     document.activeElement?.blur();
   },
 
-  closeModal() {
+  closeFromRoute() {
     const modal = document.getElementById("modal-dialog");
-    const { documentElement: html } = document;
-    html.classList.add(this.closingClass);
+    const { documentElement: htmlRoot } = document;
+
+    if (!modal.open && !this.html && !this.slug) return;
+
+    htmlRoot.classList.add(this.closingClass);
+
     setTimeout(() => {
-      html.classList.remove(this.closingClass, this.isOpenClass);
-      html.style.removeProperty(this.scrollbarWidthCssVar);
+      htmlRoot.classList.remove(this.closingClass, this.isOpenClass);
+      htmlRoot.style.removeProperty(this.scrollbarWidthCssVar);
       modal.close();
       this.html = "";
       this.title = "";
+      this.slug = null;
     }, this.animationDuration);
-
-    if (location.hash)
-      history.replaceState({}, "", location.pathname + location.search);
   },
+
+  close() {
+    history.back();
+  },
+
 });
+
 
 /*
  * Convert icons from simple-icons lib to SVG string.
@@ -111,4 +127,7 @@ window.simpleIconsToSvg = simpleIconsToSvg;
 
 const animlib = sal({ threshold: 0.2 }); // fire up Sal animation lib
 window.Alpine = Alpine;
+document.addEventListener("alpine:init", () => {
+  initRouter(Alpine);
+});
 Alpine.start();
