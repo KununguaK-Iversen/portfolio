@@ -14,6 +14,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
+import ffmpegPath from "ffmpeg-static";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 
@@ -32,9 +33,10 @@ const videoExts = new Set([".mp4", ".m4v"]);
 const allExts = new Set([...imageExts, ...videoExts]);
 
 async function extractFirstFrame(videoPath) {
-  // Returns a Buffer with a PNG of the first frame
+  const ffmpeg = ffmpegPath || "ffmpeg"; // fallback for weird environments
+
   const { stdout } = await execFileAsync(
-    "ffmpeg",
+    ffmpeg,
     [
       "-hide_banner",
       "-loglevel",
@@ -52,12 +54,13 @@ async function extractFirstFrame(videoPath) {
     ],
     {
       encoding: "buffer",
-      maxBuffer: 50 * 1024 * 1024, // 50MB safety margin
+      maxBuffer: 50 * 1024 * 1024,
     },
   );
 
   return stdout;
 }
+
 
 async function main() {
   await fs.mkdir(outputDir, { recursive: true });
