@@ -3,7 +3,7 @@ node_modules/
 
 # Build folders
 dist/
-images_gifify/*
+images_gifify/
 
 # Sass build artifacts
 assets/style.min.css

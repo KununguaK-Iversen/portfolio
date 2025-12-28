@@ -41,7 +41,7 @@ npm run dev
 | Script    | Description                          |
 |---------- |--------------------------------------|
 | dev       | Start Vite dev server                |
-| build     | Build production bundle              |
+| build     | Run gifify & build production bundle |
 | preview   | Preview the production build         |
 | gifify    | Convert imgs and vids to blurry gifs |
 

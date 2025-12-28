@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run gifify",
     "build": "vite build",
     "preview": "vite preview",
     "gifify": "node build_assets/gifify.js images images_gifify 40"
