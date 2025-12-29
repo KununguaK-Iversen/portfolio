@@ -50,14 +50,9 @@
                 Hire me!
               </summary>
               <ul x-data="{isMobile: /Android|webOS|iPhone|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)}">
-                <li><a href="https://www.linkedin.com/in/colorcoder/" target="_blank"
-                    x-html="$store.icons.linkedin+' Linkedin'"></a></li>
-
                 <li><a href="mailto:kununguaq@gmail.com" x-html="$store.icons.Mail+' E-mail'"></a></li>
-
                 <li x-show="isMobile"><a href="https://wa.me/qr/6Z2ZANCEYVRGM1" target="_blank"
                     x-html="$store.icons.whatsapp+' WhatsApp'"></a></li>
-
                 <li x-show="!isMobile"><a href="pages/whatsapp" x-html="$store.icons.whatsapp+' WhatsApp'"></a></li>
 
               </ul>
@@ -65,6 +60,9 @@
 
             <a role="button" class="outline secondary btn-naked" href="pages/aboutme"
               x-html="$store.icons.FileUser+'About me'"></a>
+
+            <a role="button" class="outline secondary btn-naked" href="https://www.linkedin.com/in/colorcoder/"
+              target="_blank" x-html="$store.icons.linkedin+' LinkedIn'"></a>
 
             <!-- <a disabled role="button" class="outline secondary btn-naked" href="https://github.com/KununguaK-Iversen"
               target="_blank" x-html="$store.icons.github+'GitHub'"></a> -->
