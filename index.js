@@ -3,7 +3,7 @@ import './components/progr-media/progr-media.js'; // registers <progr-media> web
 import sal from "sal.js"; // Animation https://github.com/mciastek/sal
 import Alpine from "alpinejs"; // Framework https://alpinejs.dev/
 import { initRouter } from "./build_assets/router.js";
-import { X, FileText, Mail, SquareArrowOutUpRight, FileUser, ScrollText } from "lucide-static"; // Generic icons https://lucide.dev/
+import { X, Mail, SquareArrowOutUpRight, FileUser, ScrollText } from "lucide-static"; // Generic icons https://lucide.dev/
 import { siGithub, siWhatsapp } from "simple-icons"; // Brand icons https://simpleicons.org/
 
 document.documentElement.classList.remove("loading");
@@ -11,7 +11,6 @@ document.documentElement.classList.add("ready");
 
 Alpine.store("icons", {
   X,
-  FileText,
   Mail,
   SquareArrowOutUpRight,
   FileUser,

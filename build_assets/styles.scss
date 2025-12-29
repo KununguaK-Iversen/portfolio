@@ -371,8 +371,7 @@ img {
 button,
 a[role="button"] {
   >svg {
-    margin-top: -5px;
-    margin-left: 10px;
+    margin: 0 5px 0 -5px;
   }
 }
 
