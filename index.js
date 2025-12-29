@@ -3,11 +3,13 @@ import './components/progr-media/progr-media.js'; // registers <progr-media> web
 import sal from "sal.js"; // Animation https://github.com/mciastek/sal
 import Alpine from "alpinejs"; // Framework https://alpinejs.dev/
 import { injectSpeedInsights } from '@vercel/speed-insights'; // Vercel Speed Insights https://vercel.com/docs/speed-insights
+import { inject } from '@vercel/analytics'; // Vercel Analytics https://vercel.com/docs/analytics
 import { initRouter } from "./build_assets/router.js";
 import { X, Mail, SquareArrowOutUpRight, FileUser, ScrollText } from "lucide-static"; // Generic icons https://lucide.dev/
 import { siGithub, siWhatsapp } from "simple-icons"; // Brand icons https://simpleicons.org/
 
 
+inject();
 injectSpeedInsights();
 
 document.documentElement.classList.remove("loading");
