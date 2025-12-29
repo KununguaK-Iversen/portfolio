@@ -6,14 +6,14 @@ A lightweight, modern portfolio built with **Vite 7**, **Alpine.js**, and **Pico
 
 ## Tech Stack
 
-- Vite (^7.1.12)
-- Alpine.js (^3.15.1)
-- Pico CSS (^2.1.1)
-- SAL.js (^0.8.5)
-- Lucide Static (^0.548.0) & Simple Icons (^15.18.0)
-- Sass (^1.93.2)
-- Sharp (^0.34.4)
-- vite-plugin-static-copy (^3.1.4)
+- **Vite** ^7.1.12 (Build tool)
+- **vite-plugin-static-copy** ^3.1.4 (Build dep)
+- **Sharp** ^0.34.4 & **ffmpeg-static** ^5.3.0 (Gifify deps)
+- **Alpine.js** ^3.15.1 (Reactive UI)
+- **Pico CSS** ^2.1.1 (Semantic styling)
+- **SAL.js** ^0.8.5 (Animation lib)
+- **Lucide Static** ^0.548.0 & **Simple Icons** ^15.18.0 (Icon libs)
+- **Sass** ^1.93.2 (Styling preprocessor)
 
 ---
 
