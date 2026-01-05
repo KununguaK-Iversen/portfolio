@@ -1,7 +1,7 @@
 progr-media {
     display: block;
     position: relative;
-    contain: layout
+    contain: layout;
 }
 
 /* stack */
@@ -18,7 +18,7 @@ progr-media .pm-high {
 
 /* low is visible until high becomes ready */
 progr-media .pm-low {
-    opacity: 1
+    opacity: 1;
 }
 
 progr-media .pm-high {

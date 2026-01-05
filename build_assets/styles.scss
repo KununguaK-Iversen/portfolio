@@ -68,6 +68,8 @@ $dialog-breakpoints: (
 dialog>article {
   margin-bottom: var(--pico-spacing) !important;
 
+  height: 96%;
+
   >header {
     display: flex;
     flex-flow: row;
