@@ -4,22 +4,21 @@
 
     .grid {
         grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)) !important;
-    }
 
-    /* Features grid */
-    .card {
-        border-radius: 0.2rem;
-        position: relative;
-        overflow: hidden;
-        padding: 1rem;
+        .card {
+            border-radius: 0.2rem;
+            position: relative;
+            overflow: hidden;
+            padding: 1rem;
 
-        &:focus-visible {
-            outline-offset: 1px;
-        }
+            &:focus-visible {
+                outline-offset: 1px;
+            }
 
-        progr-media {
-            aspect-ratio: 16 / 9;
-            margin: -1rem -1rem 1rem -1rem;
+            progr-media {
+                aspect-ratio: 16 / 9;
+                margin: -1rem -1rem 1rem -1rem;
+            }
         }
     }
 }

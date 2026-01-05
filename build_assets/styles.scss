@@ -118,6 +118,7 @@ article {
   margin-bottom: 0;
 }
 
+
 section {
   background-size: cover;
   background-image: url(/build_assets/lines.svg);
@@ -165,19 +166,6 @@ section {
     }
   }
 
-  .float-media-left {
-    float: left;
-    margin: 0 2rem 1rem 0;
-    height: auto;
-    border-radius: 6px;
-    box-shadow: var(--pico-box-shadow);
-
-    @media (max-width: 64rem) {
-      width: 100%;
-      margin-bottom: 2rem;
-    }
-  }
-
   /* Badges */
   .badges {
     display: flex;
@@ -196,6 +184,27 @@ section {
       font-size: 0.9rem;
     }
   }
+}
+
+.float-media {
+  height: auto;
+  border-radius: 6px;
+  box-shadow: var(--pico-box-shadow);
+
+  @media (max-width: 64rem) {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+}
+
+.float-media-left {
+  margin: 0 2rem 1rem 0;
+  float: left;
+}
+
+.float-media-right {
+  margin: 0 0 1rem 2rem;
+  float: right;
 }
 
 /* History block */
@@ -386,4 +395,8 @@ details.dropdown {
 
 .clickable {
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
